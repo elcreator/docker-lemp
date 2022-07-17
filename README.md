@@ -1,46 +1,45 @@
 ## docker-lemp
 
-[![Docker build](https://github.com/adhocore/docker-lemp/actions/workflows/build.yml/badge.svg)](https://github.com/adhocore/docker-lemp/actions/workflows/build.yml)
+[![Docker build](https://github.com/elcreator/docker-lemp/actions/workflows/build.yml/badge.svg)](https://github.com/elcreator/docker-lemp/actions/workflows/build.yml)
 [![Donate 15](https://img.shields.io/badge/donate-paypal-blue.svg?style=flat-square&label=donate+15)](https://www.paypal.me/ji10/15usd)
 [![Donate 25](https://img.shields.io/badge/donate-paypal-blue.svg?style=flat-square&label=donate+25)](https://www.paypal.me/ji10/25usd)
 [![Donate 50](https://img.shields.io/badge/donate-paypal-blue.svg?style=flat-square&label=donate+50)](https://www.paypal.me/ji10/50usd)
-[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Complete+LEMP+fullstack+for+local+development+using+docker&url=https://github.com/adhocore/docker-lemp&hashtags=docker,lemp,fullstack,localdev)
+[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Complete+LEMP+fullstack+for+local+development+using+docker&url=https://github.com/elcreator/docker-lemp&hashtags=docker,lemp,fullstack,localdev)
 
+**Forked from adhocore/lemp to support the latest Phalcon with minimal setup only.**
 
 > Do not use this LEMP in Production.
-> For production, use [adhocore/phpfpm](https://github.com/adhocore/docker-phpfpm)
+> For production, use [elcreator/phpfpm](https://github.com/elcreator/docker-phpfpm)
 > then [compose](https://docs.docker.com/compose/install/) a stack using individual `nginx`, `redis`, `mysql` etc images.
 
-[`adhocore/lemp`](https://hub.docker.com/r/adhocore/lemp) is a minimal single container LEMP full stack for local development.
+[`elcreator/lemp`](https://hub.docker.com/r/elcreator/lemp) is a minimal single container LEMP full stack for local development.
 
-> If you want to use PHP7.4 on LEMP stack then head over to [`adhocore/lemp:7.4`](7.4.Dockerfile).
+> If you want to use PHP7.4 on LEMP stack then head over to [`elcreator/lemp:7.4`](7.4.Dockerfile).
 
 It is quick jumpstart for onboarding you into docker based development.
 The download size is just about ~360MB which is tiny considering how much tools and stuffs it contains.
 
-The docker container `adhocore/lemp` is composed of:
+The docker container `elcreator/lemp` is composed of:
 
-Name          | Version    | Port
---------------|------------|------
-adminer       | 4.8.1      | 80
-alpine        | 3.12       | -
-beanstalkd    | 1.11       | 11300
-elasticsearch`*` | 6.4.3      | 9200,9300
-mailcatcher   | 0.7.1      | 88
-memcached     | 1.6.6      | 11211
-MySQL`**`     | 5.7        | 3306
-nginx         | 1.18.0     | 80
-phalcon       | 4.0.0      | -
-PHP8.1        | 8.1.7      | 9000
-PHP8.0        | 8.0.20     | 9000
-PHP7.4        | 7.4.30     | 9000
-PostgreSQL    | 12.6       | 5432
-~rabbitmq~    | 3.8.*      | 5672
-redis         | 5.0.11     | 6379
-swoole        | 4.5.9      | -
+Name          | Version | Port
+--------------|---------|------
+adminer       | 4.8.1   | 80
+alpine        | 3.12    | -
+beanstalkd    | 1.11    | 11300
+elasticsearch`*` | 6.4.3   | 9200,9300
+mailcatcher   | 0.7.1   | 88
+memcached     | 1.6.6   | 11211
+MySQL`**`     | 5.7     | 3306
+nginx         | 1.18.0  | 80
+phalcon       | 5.0.0RC3| -
+PHP8.0        | 8.0.20  | 9000
+PHP7.4        | 7.4.30  | 9000
+PostgreSQL    | 12.6    | 5432
+~rabbitmq~    | 3.8.*   | 5672
+redis         | 5.0.11  | 6379
+swoole        | 4.5.9   | -
 
-> `*`: Latest versions of alpine (3.13+) seems to have removed `elasticsearch` binary!
-> `**`: It is actually MariaDB 10.4.17.
+> `*`: It is actually MariaDB 10.4.17.
 
 ## Usage
 
@@ -48,26 +47,26 @@ Install [docker](https://docs.docker.com/install/) in your machine.
 Also recommended to install [docker-compose](https://docs.docker.com/compose/install/).
 
 ```sh
-# pull latest image
-docker pull adhocore/lemp:8.1
+# pull latest image - Phalcon is not ready for 8.1
+# docker pull elcreator/lemp:8.1
 
-# or with PHP8.0
-docker pull adhocore/lemp:8.0
+# pull image with PHP8.0
+docker pull elcreator/lemp:8.0
 
 # or if you use php 7.4, replace 8.0 with 7.4:
-docker pull adhocore/lemp:7.4
+docker pull elcreator/lemp:7.4
 
 # Go to your project root then run
-docker run -p 8080:80 -p 8888:88 -v `pwd`:/var/www/html --name lemp -d adhocore/lemp:8.0
+docker run -p 8080:80 -p 8888:88 -v `pwd`:/var/www/html --name lemp -d elcreator/lemp:8.0
 
 # In windows, you would use %cd% instead of `pwd`
-docker run -p 8080:80 -p 8888:88 -v %cd%:/var/www/html --name lemp -d adhocore/lemp:8.0
+docker run -p 8080:80 -p 8888:88 -v %cd%:/var/www/html --name lemp -d elcreator/lemp:8.0
 
 # If you want to setup MySQL credentials, pass env vars
 docker run -p 8080:80 -p 8888:88 -v `pwd`:/var/www/html \
   -e MYSQL_ROOT_PASSWORD=1234567890 -e MYSQL_DATABASE=appdb \
   -e MYSQL_USER=dbuser -e MYSQL_PASSWORD=123456 \
-  --name lemp -d adhocore/lemp:8.0
+  --name lemp -d elcreator/lemp:8.0
   # for postgres you can pass in similar env as for mysql but with PGSQL_ prefix
 ```
 
@@ -98,7 +97,7 @@ docker start lemp
 
 > **PRO** If you develop multiple apps, you can create multiple lemp containers with different names.
 >
-> eg: `docker run -p 8081:80 -v $(pwd):/var/www/html --name new-lemp -d adhocore/lemp:8.0`
+> eg: `docker run -p 8081:80 -v $(pwd):/var/www/html --name new-lemp -d elcreator/lemp:8.0`
 
 
 ## With Docker compose
@@ -111,7 +110,7 @@ version: '3'
 
 services:
   app:
-    image: adhocore/lemp:8.0
+    image: elcreator/lemp:8.0
     # For different app you can use different names. (eg: )
     container_name: some-app
     volumes:
@@ -186,7 +185,7 @@ Either your app has `public/` folder or not, the rewrite adapts automatically.
 
 ### PHP
 
-For available extensions, check [adhocore/phpfpm#extension](https://github.com/adhocore/docker-phpfpm/tree/8.0#extensions).
+For available extensions, check [elcreator/phpfpm#extension](https://github.com/elcreator/docker-phpfpm/tree/8.0#extensions).
 
 ### Disabling services
 

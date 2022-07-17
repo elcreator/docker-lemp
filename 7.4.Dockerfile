@@ -1,9 +1,11 @@
-FROM adhocore/phpfpm:7.4
+FROM elcreator/phpfpm:7.4
 
 MAINTAINER Jitendra Adhikari <jiten.adhikary@gmail.com>
 
 ENV \
   ADMINER_VERSION=4.8.1 \
+  ZEPHIR_VERSION=0.16.0 \
+  PHALCON_VERSION=5.0.0RC3 \
   ES_HOME=/usr/share/java/elasticsearch \
   PATH=/usr/share/java/elasticsearch/bin:$PATH
 
